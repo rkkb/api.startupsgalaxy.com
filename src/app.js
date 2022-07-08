@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8081;
 
 const sequelize = new Sequelize("sql6504817", "sql6504817", "sgFGYUmWzr", {
   host: "sql6.freesqldatabase.com",

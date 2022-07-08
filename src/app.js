@@ -18,14 +18,20 @@ app.use(json());
 
 const PORT = process.env.PORT || 8081;
 
-const sequelize = new Sequelize("sql6504817", "sql6504817", "sgFGYUmWzr", {
-  host: "sql6.freesqldatabase.com",
-  dialect: "mysql",
-  operatorAliases: false,
-  dialectOptions: {
-    decimalNumbers: true,
-  },
-});
+const sequelize = new Sequelize(
+  "startups_galaxy",
+  "startups-galaxy",
+  "startupsgalaxY#234",
+  {
+    host: "174.138.15.49",
+    port: 5500,
+    dialect: "mysql",
+    operatorAliases: false,
+    dialectOptions: {
+      decimalNumbers: true,
+    },
+  }
+);
 
 try {
   (async function () {
@@ -57,8 +63,8 @@ const SubscriberModel = sequelize.define("subscriber", {
     allowNull: false,
     unique: true,
   },
-  created_at: { type: DataTypes.DATE, defaultValue: new Date() },
-  updated_at: {
+  createdAt: { type: DataTypes.DATE, defaultValue: new Date() },
+  updatedAt: {
     type: Sequelize.DATE,
     allowNull: false,
     onUpdate: "SET DEFAULT",

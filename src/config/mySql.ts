@@ -24,6 +24,8 @@ export async function SqlConnection() {
     // eslint-disable-next-line no-console
     console.log('The table are synced');
   } catch (error) {
+    // await sequelize.close()
+
     // eslint-disable-next-line no-console
     console.error('Unable to connect to the database:', error);
   }

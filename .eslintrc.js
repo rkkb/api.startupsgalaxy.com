@@ -9,6 +9,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'import/no-import-module-exports': 'off',
+    'import/prefer-default-export': 'off',
   }, // our own set of customized rules
   settings: {
     'import/resolver': {

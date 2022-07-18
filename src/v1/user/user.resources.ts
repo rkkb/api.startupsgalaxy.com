@@ -11,3 +11,13 @@ export async function createUser(payload: {
 export async function findUser(payload: { email: string }) {
   return UserModel.findOne({ where: { email: payload.email }, raw: true });
 }
+
+export async function updatePassword(payload: {
+  password: string;
+  id: number;
+}) {
+  return UserModel.update(
+    { password: payload.password },
+    { where: { id: payload.id } },
+  );
+}

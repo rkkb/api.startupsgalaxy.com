@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '@config/mySql';
 
-const UserModel = sequelize.define(
-  'users',
+const DealCategoryModel = sequelize.define(
+  'dealCategories',
   {
     // Model attributes are defined here
     id: {
@@ -11,14 +11,9 @@ const UserModel = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: { type: DataTypes.STRING, allowNull: false },
-    email: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: 'compositeIndex',
-    },
-    password: {
-      type: DataTypes.STRING,
     },
     createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     updatedAt: {
@@ -28,7 +23,7 @@ const UserModel = sequelize.define(
       defaultValue: DataTypes.NOW,
     },
   },
-  // { indexes: [{ unique: true, fields: ["email"] }] }
+  { indexes: [{ unique: true, fields: ['name'] }] },
 );
 
-export default UserModel;
+export default DealCategoryModel;

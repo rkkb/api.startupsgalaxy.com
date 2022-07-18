@@ -25,6 +25,7 @@ export default async function allRoutes(app: Express) {
   allFiles.forEach((file: string) => {
     if (file.indexOf('route') > -1) {
       let fileName = file.split('.')[0];
+      console.log('file name', fileName)
       const routeName = fileName.split('\\')[3];
       if (process.platform === 'win32') {
         fileName = fileName.replaceAll('\\', '/');

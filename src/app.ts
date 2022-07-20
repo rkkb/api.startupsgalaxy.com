@@ -6,7 +6,7 @@ import routes from '@startup/routes';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 9987;
 
 const app: Express = express();
 const server = require('http').Server(app);

@@ -6,7 +6,7 @@ import routes from '@startup/routes';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 9987;
 
 const app: Express = express();
 const server = require('http').Server(app);
@@ -14,7 +14,7 @@ const server = require('http').Server(app);
 startUp(app);
 
 app.get('/', async (_req, res) => {
-  res.json({ status: true, message: 'Our node.js app works' });
+  res.json({ status: true, message: 'Our node.js app works api.startsupgalaxy.com' });
 });
 
 server.listen(process.env.PORT, async () => {

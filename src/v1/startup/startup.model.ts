@@ -54,7 +54,7 @@ const StartupModel = sequelize.define('startup', {
     allowNull: false,
   },
   country: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   foundedYear: {

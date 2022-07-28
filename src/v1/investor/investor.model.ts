@@ -2,12 +2,8 @@ import { DataTypes } from 'sequelize';
 import sequelize from '@config/mySql';
 import UserModel from '@user/user.model';
 import IndustryModel from '@util/industry.model';
-import FounderCountModel from '@util/founderCount.model';
-import TeamSizeModel from '@util/teamSize.model';
-import StageModel from '@util/stage.model';
-import StartupTagModel from './startup.tags.model';
 
-const StartupModel = sequelize.define('startup', {
+const InvestorModel = sequelize.define('investor', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -25,29 +21,11 @@ const StartupModel = sequelize.define('startup', {
   websiteLink: { type: DataTypes.STRING, allowNull: false },
   mobile: { type: DataTypes.STRING },
 
-  playStore: {
-    type: DataTypes.STRING,
-  },
-  appStore: {
-    type: DataTypes.STRING,
-  },
-
   industryType: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  founderType: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  teamSizeType: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  stageType: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+
   country: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -90,28 +68,14 @@ const StartupModel = sequelize.define('startup', {
   },
 });
 
-StartupModel.belongsTo(UserModel, {
+InvestorModel.belongsTo(UserModel, {
   foreignKey: 'createdBy',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
 
-StartupModel.belongsTo(IndustryModel, {
+InvestorModel.belongsTo(IndustryModel, {
   foreignKey: 'industryType',
 });
 
-StartupModel.belongsTo(FounderCountModel, {
-  foreignKey: 'founderType',
-});
-
-StartupModel.belongsTo(TeamSizeModel, {
-  foreignKey: 'teamSizeType',
-});
-
-StartupModel.belongsTo(StageModel, {
-  foreignKey: 'stageType',
-});
-
-StartupModel.hasMany(StartupTagModel);
-
-export default StartupModel;
+export default InvestorModel;

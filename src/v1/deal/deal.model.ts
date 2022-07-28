@@ -14,7 +14,7 @@ const DealModel = sequelize.define('deals', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  companyName: { type: DataTypes.STRING, allowNull: false },
+  name: { type: DataTypes.STRING, allowNull: false },
   headline: { type: DataTypes.STRING, allowNull: false },
   details: { type: DataTypes.STRING, allowNull: false },
   expirationDate: { type: DataTypes.STRING, allowNull: false },

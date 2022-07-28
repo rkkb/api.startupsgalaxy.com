@@ -1,18 +1,22 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '@config/mySql';
+import TagModel from '@util/tag.model';
 
-const FounderCountModel = sequelize.define(
-  'founderCount',
+const StartupTagModel = sequelize.define(
+  'startupTags',
   {
-    // Model attributes are defined here
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    startupId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    tagId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
@@ -23,7 +27,10 @@ const FounderCountModel = sequelize.define(
       defaultValue: DataTypes.NOW,
     },
   },
-  { indexes: [{ unique: true, fields: ['name'] }] },
 );
 
-export default FounderCountModel;
+StartupTagModel.belongsTo(TagModel, {
+  foreignKey: 'tagId',
+});
+
+export default StartupTagModel;

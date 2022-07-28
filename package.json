@@ -35,7 +35,8 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "nodemon": "^2.0.18",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sequelize-cli": "^6.4.1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

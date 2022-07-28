@@ -14,7 +14,13 @@ const server = require('http').Server(app);
 startUp(app);
 
 app.get('/', async (_req, res) => {
-  res.json({ status: true, message: 'Our node.js app works api.startsupgalaxy.com' });
+  res.json({ status: true, message: 'Our node.js app works' });
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  // eslint-disable-next-line no-console
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application specific logging, throwing an error, or other logic here
 });
 
 server.listen(process.env.PORT, async () => {

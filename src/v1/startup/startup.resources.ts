@@ -1,3 +1,4 @@
+import { IDBQuery } from '@util/helper';
 import StartupModel from './startup.model';
 
 export async function createStartup(payload: {
@@ -7,7 +8,10 @@ export async function createStartup(payload: {
   details: string;
   expirationDate: string;
   termsConditions: string;
-  category: number;
 }) {
   return StartupModel.create(payload);
+}
+
+export async function getStartups(query: IDBQuery) {
+  return StartupModel.findAll({ ...query, raw: true });
 }

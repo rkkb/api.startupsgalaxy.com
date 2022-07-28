@@ -4,7 +4,6 @@ import sequelize from '@config/mySql';
 const TagModel = sequelize.define(
   'tags',
   {
-    // Model attributes are defined here
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,

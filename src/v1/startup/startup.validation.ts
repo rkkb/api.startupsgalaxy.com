@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 
 export const validateCreateStartup = [
   body('userInfo.id').not().isEmpty(),
@@ -6,7 +6,10 @@ export const validateCreateStartup = [
   body('headline').not().isEmpty(),
   body('details').not().isEmpty(),
   body('foundedYear').not().isEmpty(),
-  body('logo').not().isEmpty(),
+  check('logo').custom((_value, { req }) => {
+    if (req.file) return true;
+    throw new Error('Logo file is required');
+  }),
   body('websiteLink').not().isEmpty(),
   body('industryType').not().isEmpty(),
   body('founderType').not().isEmpty(),

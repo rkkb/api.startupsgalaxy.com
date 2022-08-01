@@ -20,7 +20,7 @@ export async function SqlConnection() {
     // eslint-disable-next-line no-console
     console.log('Connection has been established successfully.');
 
-    await sequelize.sync({ alter: true });
+    // await sequelize.sync({ alter: true });
     // eslint-disable-next-line no-console
     console.log('The table are synced');
   } catch (error) {

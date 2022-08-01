@@ -1,6 +1,8 @@
 import { queryGenerator } from '@util/helper';
 import { Request, Response } from 'express';
-import { createDeal, getCategories, getDeals } from './deal.resources';
+import {
+  createDeal, getCategories, getDeal, getDeals,
+} from './deal.resources';
 
 export async function handleCreateDeal(req: Request, res: Response) {
   try {
@@ -42,6 +44,23 @@ export async function handleGetDeals(req: Request, res: Response) {
       },
       message: 'Deals fetched successfull',
     });
+  } catch (ex: any) {
+    return res.status(500).json({
+      message: ex?.message ?? 'Something went wrong! try again later',
+    });
+  }
+}
+
+export async function handleGetSingleDeal(req: Request, res: Response) {
+  try {
+    const data: any = await getDeal({ id: Number(req.params.id) });
+    if (data?.id) {
+      return res.status(200).json({
+        data,
+        message: 'Deal fetched successfull',
+      });
+    }
+    return res.status(404).json({ message: 'No record found' });
   } catch (ex: any) {
     return res.status(500).json({
       message: ex?.message ?? 'Something went wrong! try again later',

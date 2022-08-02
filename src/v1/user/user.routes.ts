@@ -5,6 +5,7 @@ import {
   handleForgotPassword,
   handleGetAddedProfiles,
   handleNewPassword,
+  handleRedirectToDashboard,
   handleUserSignIn,
   handleUserSignUp,
 } from './user.controller';
@@ -22,5 +23,6 @@ routes.post('/sign-in', validate(validateSignin), handleUserSignIn);
 routes.post('/forgot-password', validate(validateEmail), handleForgotPassword);
 routes.post('/new-password', validate(validateNewPassword), handleNewPassword);
 routes.get('/added-profiles', auth, handleGetAddedProfiles);
+routes.get('/redirect-to-dashboard', auth, handleRedirectToDashboard);
 
 module.exports = routes;

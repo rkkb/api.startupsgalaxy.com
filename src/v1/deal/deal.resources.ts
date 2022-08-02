@@ -19,7 +19,7 @@ export async function getCategories() {
 }
 
 export async function getDeals(query: IDBQuery) {
-  return DealModel.findAll({ ...query, raw: true });
+  return DealModel.findAll({ ...query });
 }
 
 export async function getDeal(payload: { id: number }) {

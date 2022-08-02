@@ -1,7 +1,7 @@
 import { Request } from 'express';
 
 export type IDBQuery = {
-  [key: string]: string | number | string[][];
+  [key: string]: string | number | string[][] | { [key: string]: any };
 };
 export function queryGenerator(req: Request) {
   const limit = req.query?.limit ? Number(req.query?.limit) : 20;

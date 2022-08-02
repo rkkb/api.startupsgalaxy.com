@@ -138,3 +138,8 @@ export async function handleGetAddedProfiles(req: Request, res: Response) {
     });
   }
 }
+
+export async function handleRedirectToDashboard(req: Request, res: Response) {
+  const token = req.headers.authorization?.split(' ')[1] as string;
+  return res.redirect(`${process.env.DASHBOARD_WEB_URL}?token=${token}`);
+}

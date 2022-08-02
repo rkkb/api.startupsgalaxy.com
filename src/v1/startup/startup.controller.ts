@@ -1,7 +1,11 @@
 import { queryGenerator } from '@util/helper';
 import { Request, Response } from 'express';
 import fs from 'fs/promises';
-import { createStartup, getStartup, getStartups } from './startup.resources';
+import {
+  createStartup,
+  getStartup,
+  getStartups,
+} from './startup.resources';
 
 let dirname = __dirname;
 // eslint-disable-next-line prefer-destructuring
@@ -57,13 +61,17 @@ export async function handleGetStartups(req: Request, res: Response) {
 export async function handleGetSingleStartups(req: Request, res: Response) {
   try {
     const data: any = await getStartup({ id: Number(req.params.id) });
-    if (data?.id) {
-      return res.status(200).json({
-        data,
-        message: 'Startup fetched successfull',
-      });
-    }
-    return res.status(404).json({ message: 'No record found' });
+    if (!data?.id) return res.status(404).json({ message: 'No record found' });
+
+    const similer: any = await getStartups({
+      where: { industryType: data?.industryType },
+      ...queryGenerator(req),
+    });
+    return res.status(200).json({
+      data,
+      similer,
+      message: 'Startup fetched successfull',
+    });
   } catch (ex: any) {
     return res.status(500).json({
       message: ex?.message ?? 'Something went wrong! try again later',

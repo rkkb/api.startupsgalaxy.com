@@ -54,13 +54,17 @@ export async function handleGetDeals(req: Request, res: Response) {
 export async function handleGetSingleDeal(req: Request, res: Response) {
   try {
     const data: any = await getDeal({ id: Number(req.params.id) });
-    if (data?.id) {
-      return res.status(200).json({
-        data,
-        message: 'Deal fetched successfull',
-      });
-    }
-    return res.status(404).json({ message: 'No record found' });
+    if (!data?.id) return res.status(404).json({ message: 'No record found' });
+
+    const similer: any = await getDeals({
+      where: { category: data?.category },
+      ...queryGenerator(req),
+    });
+    return res.status(200).json({
+      data,
+      similer,
+      message: 'Deal fetched successfull',
+    });
   } catch (ex: any) {
     return res.status(500).json({
       message: ex?.message ?? 'Something went wrong! try again later',

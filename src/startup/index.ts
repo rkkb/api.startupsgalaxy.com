@@ -1,15 +1,20 @@
-import { Express } from 'express';
+import express, { Express } from 'express';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { SqlConnection } from '@config/mySql';
 
 export default function startUp(app: Express) {
-  app.use(helmet());
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: false,
+    }),
+  );
 
   app.use(cors());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(express.static('public/images'));
 
   SqlConnection();
 }

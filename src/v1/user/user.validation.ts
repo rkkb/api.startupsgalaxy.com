@@ -35,3 +35,15 @@ export const validateNewPassword = [
   ...validatePassword,
   body('token').not().isEmpty().withMessage('Token is required'),
 ];
+
+export const validateChangePassword = [
+  ...validatePassword,
+  body('newPassword').not().isEmpty().withMessage('New password is required'),
+];
+
+export const validateUpdateUserImg = [
+  check('logo').custom((_value, { req }) => {
+    if (req.files.logo && req.files.logo[0]) return true;
+    throw new Error('Logo file is required');
+  }),
+];

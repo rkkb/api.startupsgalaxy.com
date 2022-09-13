@@ -5,6 +5,7 @@ import IndustryModel from '@util/industry.model';
 import FounderCountModel from '@util/founderCount.model';
 import TeamSizeModel from '@util/teamSize.model';
 import StageModel from '@util/stage.model';
+import CountryModel from '@util/country.model';
 import StartupTagModel from './startup.tags.model';
 
 const StartupModel = sequelize.define('startup', {
@@ -48,8 +49,8 @@ const StartupModel = sequelize.define('startup', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  country: {
-    type: DataTypes.STRING,
+  countryId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   foundedYear: {
@@ -69,16 +70,7 @@ const StartupModel = sequelize.define('startup', {
   facebook: {
     type: DataTypes.STRING,
   },
-  img1: {
-    type: DataTypes.STRING,
-  },
-  img2: {
-    type: DataTypes.STRING,
-  },
-  img3: {
-    type: DataTypes.STRING,
-  },
-  img4: {
+  gallery: {
     type: DataTypes.STRING,
   },
   createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
@@ -110,6 +102,12 @@ StartupModel.belongsTo(TeamSizeModel, {
 
 StartupModel.belongsTo(StageModel, {
   foreignKey: 'stageType',
+});
+
+StartupModel.belongsTo(CountryModel, {
+  foreignKey: 'countryId',
+  onDelete: 'NO ACTION',
+  onUpdate: 'NO ACTION',
 });
 
 StartupModel.hasMany(StartupTagModel);

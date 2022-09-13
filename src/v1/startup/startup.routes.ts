@@ -16,7 +16,10 @@ const routes = express.Router();
 
 routes.post(
   '/create',
-  upload.single('logo'),
+  upload.fields([
+    { name: 'logo', maxCount: 1 },
+    { name: 'images', maxCount: 4 },
+  ]),
   auth,
   validate(validateCreateStartup),
   handleCreateStartup,

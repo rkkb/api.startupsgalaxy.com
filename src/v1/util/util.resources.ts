@@ -1,3 +1,4 @@
+import CountryModel from './country.model';
 import FounderCountModel from './founderCount.model';
 import IndustryModel from './industry.model';
 import StageModel from './stage.model';
@@ -10,21 +11,28 @@ export async function createNotify(email: string) {
 }
 
 export async function getAllIndustries() {
-  return IndustryModel.findAll({ raw: true });
+  return IndustryModel.findAll({ raw: true, attributes: ['id', 'name'] });
 }
 
 export async function getAllFounderCounts() {
-  return FounderCountModel.findAll({ raw: true });
+  return FounderCountModel.findAll({ raw: true, attributes: ['id', 'name'] });
 }
 
 export async function getAllTeamSizes() {
-  return TeamSizeModel.findAll({ raw: true });
+  return TeamSizeModel.findAll({ raw: true, attributes: ['id', 'name'] });
 }
 
 export async function getAllStages() {
-  return StageModel.findAll({ raw: true });
+  return StageModel.findAll({ raw: true, attributes: ['id', 'name'] });
 }
 
 export async function getAllTags() {
-  return TagModel.findAll({ raw: true });
+  return TagModel.findAll({ raw: true, attributes: ['id', 'name'] });
+}
+
+export async function getAllCountries() {
+  return CountryModel.findAll({
+    raw: true,
+    attributes: ['id', 'name', 'code'],
+  });
 }

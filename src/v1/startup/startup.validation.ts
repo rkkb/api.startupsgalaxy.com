@@ -7,7 +7,7 @@ export const validateCreateStartup = [
   body('details').not().isEmpty(),
   body('foundedYear').not().isEmpty(),
   check('logo').custom((_value, { req }) => {
-    if (req.file) return true;
+    if (req.files.logo && req.files.logo[0]) return true;
     throw new Error('Logo file is required');
   }),
   body('websiteLink').not().isEmpty(),
@@ -15,5 +15,5 @@ export const validateCreateStartup = [
   body('founderType').not().isEmpty(),
   body('teamSizeType').not().isEmpty(),
   body('stageType').not().isEmpty(),
-  body('country').not().isEmpty(),
+  body('countryId').not().isEmpty(),
 ];

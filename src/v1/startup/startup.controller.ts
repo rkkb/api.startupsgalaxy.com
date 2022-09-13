@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import fs from 'fs/promises';
 import {
   createStartup,
+  createStartupTags,
   getStartup,
   getStartups,
 } from './startup.resources';
@@ -12,26 +13,54 @@ let dirname = __dirname;
 dirname = dirname.split('src')[0];
 export async function handleCreateStartup(req: Request, res: Response) {
   try {
-    const { file, body } = req;
+    const { body } = req;
+    const { files } = req;
+    const logoFile: any = files.logo[0];
+    const galleryFiles = files.images;
 
     const uniquePrefix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-
-    const fileName = `logo-${body.userInfo.id}-${uniquePrefix}-${file?.originalname}`;
+    const logoName = `logo-${body.userInfo.id}-${uniquePrefix}-${logoFile?.originalname}`;
     await fs.writeFile(
-      `${dirname}public/images/${fileName}`,
-      file?.buffer as any,
+      `${dirname}public/images/${logoName}`,
+      logoFile?.buffer as any,
     );
-    // console.log('lokehs data', data)
-    await createStartup({
+
+    const gallery: string[] = [];
+    if (Array.isArray(galleryFiles) && galleryFiles.length) {
+      for (const obj of galleryFiles) {
+        const uniquePrefix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+
+        const gallaryImg = `gallery-${body.userInfo.id}-${uniquePrefix}-${obj?.originalname}`;
+        await fs.writeFile(
+          `${dirname}public/images/${gallaryImg}`,
+          obj?.buffer as any,
+        );
+        gallery.push(gallaryImg);
+      }
+    }
+
+    const payload = {
       ...req.body,
       createdBy: req.body.userInfo.id,
-      logo: fileName,
-    });
+      logo: logoName,
+    };
+    if (gallery.length) payload.gallery = JSON.stringify(gallery);
+    const startup: any = await createStartup(payload);
+    startup.toJSON();
+
+    // Creating tags
+    const tags: number[] = JSON.parse(body.tags);
+    if (startup?.id) {
+      await createStartupTags(
+        tags.map((val) => ({ startupId: startup.id, tagId: val })),
+      );
+    }
 
     return res.status(201).json({
       message: 'Startup created successfull',
     });
   } catch (ex: any) {
+    console.log('ex', ex);
     return res.status(500).json({
       message: ex?.message ?? 'Something went wrong! try again later',
     });

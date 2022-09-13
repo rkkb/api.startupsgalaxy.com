@@ -15,7 +15,7 @@ export async function createDeal(payload: {
 }
 
 export async function getCategories() {
-  return DealCategoryModel.findAll({ raw: true });
+  return DealCategoryModel.findAll({ raw: true, attributes: ['id', 'name'] });
 }
 
 export async function getDeals(query: IDBQuery) {
